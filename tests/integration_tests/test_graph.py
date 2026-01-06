@@ -9,8 +9,8 @@ from langsmith import expect, unit
 
 from index_graph import graph as index_graph
 from retrieval_graph import graph
-from shared.configuration import BaseConfiguration
-from shared.retrieval import make_text_encoder
+from src.shared.configuration import BaseConfiguration
+from src.shared.retrieval import make_text_encoder
 
 
 @contextmanager
@@ -34,6 +34,14 @@ def make_elastic_vectorstore(
 @pytest.mark.asyncio
 @unit
 async def test_retrieval_graph() -> None:
+    if not os.getenv("LANGSMITH_API_KEY"):
+        pytest.skip("LANGSMITH_API_KEY is not set")
+    if not os.getenv("ELASTICSEARCH_URL"):
+        pytest.skip("ELASTICSEARCH_URL is not set")
+    if not os.getenv("ELASTICSEARCH_USER"):
+        pytest.skip("ELASTICSEARCH_USER is not set")
+    if not os.getenv("ELASTICSEARCH_PASSWORD"):
+        pytest.skip("ELASTICSEARCH_PASSWORD is not set")
     simple_doc = 'In LangGraph, nodes are typically python functions (sync or async) where the first positional argument is the state, and (optionally), the second positional argument is a "config", containing optional configurable parameters (such as a thread_id).'
     config = RunnableConfig(
         configurable={

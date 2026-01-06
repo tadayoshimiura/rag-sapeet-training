@@ -1,4 +1,4 @@
-"""Index Graph Module."""
+"""インデックス作成用のグラフモジュール。"""
 
 from index_graph.graph import graph
 

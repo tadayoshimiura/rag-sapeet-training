@@ -1,0 +1,9 @@
+{
+  "summary": {
+    "min_chars": 160,
+    "max_chars": 240,
+    "length_fix_retries": 2,
+    "length_fix_max_tokens": 600,
+    "length_fix_temperature": 0.0
+  }
+}

@@ -1,4 +1,4 @@
-from shared.configuration import BaseConfiguration
+from src.shared.configuration import BaseConfiguration
 
 
 def test_configuration_empty() -> None:

@@ -1,7 +1,4 @@
-"""State management for the researcher graph.
-
-This module defines the state structures used in the researcher graph.
-"""
+"""調査用サブグラフの状態定義。"""
 
 from dataclasses import dataclass, field
 from typing import Annotated

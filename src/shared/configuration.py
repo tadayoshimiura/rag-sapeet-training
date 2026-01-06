@@ -20,19 +20,26 @@ class BaseConfiguration:
         str,
         {"__template_metadata__": {"kind": "embeddings"}},
     ] = field(
-        default="openai/text-embedding-3-small",
+        default="bedrock/cohere.embed-multilingual-v3",
         metadata={
             "description": "Name of the embedding model to use. Must be a valid embedding model name."
         },
     )
 
     retriever_provider: Annotated[
-        Literal["elastic-local", "elastic", "pinecone", "mongodb"],
+        Literal[
+            "elastic-local",
+            "elastic",
+            "pinecone",
+            "mongodb",
+            "opensearch",
+            "bedrock-kb",
+        ],
         {"__template_metadata__": {"kind": "retriever"}},
     ] = field(
-        default="elastic-local",
+        default="opensearch",
         metadata={
-            "description": "The vector store provider to use for retrieval. Options are 'elastic', 'pinecone', or 'mongodb'."
+            "description": "The vector store provider to use for retrieval."
         },
     )
 

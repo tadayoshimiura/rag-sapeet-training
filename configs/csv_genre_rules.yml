@@ -1,0 +1,8 @@
+version: "0.1"
+
+rules:
+  - category: "Ruby"
+    keywords:
+      - "Ruby on Rails"
+      - "Rails"
+      - "Ruby"

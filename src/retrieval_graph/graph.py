@@ -1,10 +1,4 @@
-"""Main entrypoint for the conversational retrieval graph.
-
-This module defines the core structure and functionality of the conversational
-retrieval graph. It includes the main graph definition, state management,
-and key functions for processing & routing user queries, generating research plans to answer user questions,
-conducting research, and formulating responses.
-"""
+"""対話型検索グラフの本体ロジック。"""
 
 from typing import Any, Literal, TypedDict, cast
 
@@ -64,7 +58,8 @@ def route_query(
     elif _type == "more-info":
         return "ask_for_more_info"
     elif _type == "general":
-        return "respond_to_general_query"
+        # KB前提で検索に流す
+        return "create_research_plan"
     else:
         raise ValueError(f"Unknown router type {_type}")
 

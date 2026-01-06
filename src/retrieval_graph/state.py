@@ -1,8 +1,4 @@
-"""State management for the retrieval graph.
-
-This module defines the state structures used in the retrieval graph. It includes
-definitions for agent state, input state, and router classification schema.
-"""
+"""対話型検索グラフの状態定義。"""
 
 from dataclasses import dataclass, field
 from typing import Annotated, Literal, TypedDict

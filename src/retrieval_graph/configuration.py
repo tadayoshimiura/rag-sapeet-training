@@ -1,4 +1,4 @@
-"""Define the configurable parameters for the agent."""
+"""対話型検索グラフの設定定義。"""
 
 from __future__ import annotations
 

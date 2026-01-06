@@ -1,8 +1,4 @@
-"""Researcher graph used in the conversational retrieval system as a subgraph.
-
-This module defines the core structure and functionality of the researcher graph,
-which is responsible for generating search queries and retrieving relevant documents.
-"""
+"""調査用サブグラフの処理。"""
 
 from typing import TypedDict, cast
 

@@ -123,7 +123,10 @@ celerybeat.pid
 
 # Environments
 .env
+.env.*
+!.env.example
 .venv
+.venv_py313
 env/
 venv/
 ENV/
@@ -162,3 +165,8 @@ cython_debug/
 #.idea/
 .DS_Store
 uv.lock
+.deepeval/
+outputs/
+logs/
+reports/
+.vscode/

@@ -1,1 +1,1 @@
-"""Researcher Graph Module."""
+"""調査クエリ生成と検索を担うサブグラフ。"""

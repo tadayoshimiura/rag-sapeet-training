@@ -1,0 +1,56 @@
+# ジャンル別 生成/評価ルール（暫定）
+#
+# - genre_id / subgenre_id / tags / skills_to_learn がDB/APIで未確定の間は、
+#   ここでは TBD_* を用いて「推測を仕様に混ぜない」運用にする。
+# - ルールは「根拠」ではなく「制約」。根拠は常に {contexts} のみ。
+#
+# 運用:
+# - 不明な場合は default を適用する。
+# - DB/API確定後に TBD_* を確定キーへ置換していく。
+
+version: "0.1"
+
+default:
+  description: "ジャンル未確定・未指定のときの既定ルール"
+  # question_type の許容（評価時に使える）
+  allowed_question_types:
+    - single_choice
+    - multiple_choice
+    - text
+  # tags の最低要件（評価時に使える）
+  tags:
+    min_count: 1
+    max_count: 10
+    # tags が skills_to_learn を含むべきなら prefix を使う（例: skill:xxx）
+    required_prefixes: []
+  # weight 分布は test_genre のルールを優先（ここはジャンル側の微調整枠）
+  weight_adjustment:
+    enabled: false
+    note: "ジャンルで微調整したい場合に使う（例: businessはscenario比率↑）"
+
+# 例: programming っぽいジャンル（キー名は未確定なので TBD）
+TBD_genre_id_programming_like:
+  description: "プログラミング系を想定した暫定ルール"
+  allowed_question_types:
+    - single_choice
+    - multiple_choice
+    - text
+  tags:
+    min_count: 2
+    max_count: 10
+    required_prefixes:
+      - "skill:"
+      - "topic:"
+
+# 例: business っぽいジャンル（キー名は未確定なので TBD）
+TBD_genre_id_business_like:
+  description: "ビジネス系を想定した暫定ルール"
+  allowed_question_types:
+    - single_choice
+    - multiple_choice
+    - text
+  tags:
+    min_count: 2
+    max_count: 10
+    required_prefixes:
+      - "topic:"

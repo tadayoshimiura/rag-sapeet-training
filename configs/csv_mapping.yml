@@ -1,0 +1,8 @@
+columns:
+  course_id: course_id
+  section_id: section_id
+  section_title: section_title
+  section_order: section_order
+  part_title: part_title
+  part_text: part_text
+  part_order: part_order

@@ -5,6 +5,7 @@ Functions:
     load_chat_model: Load a chat model from a model name.
 """
 
+import os
 from typing import Optional
 
 from langchain.chat_models import init_chat_model
@@ -74,4 +75,15 @@ def load_chat_model(fully_specified_name: str) -> BaseChatModel:
     else:
         provider = ""
         model = fully_specified_name
+    if provider == "bedrock":
+        try:
+            from langchain_aws import ChatBedrock
+        except ImportError as exc:
+            raise ImportError(
+                "Bedrock を使うには langchain-aws が必要です。"
+            ) from exc
+        region = os.getenv("AWS_REGION") or os.getenv("AWS_DEFAULT_REGION")
+        if not region:
+            raise ValueError("AWS_REGION が未設定です")
+        return ChatBedrock(model_id=model, region_name=region)
     return init_chat_model(model, model_provider=provider)
