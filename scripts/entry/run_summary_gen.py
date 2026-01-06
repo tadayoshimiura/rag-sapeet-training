@@ -234,7 +234,7 @@ def _resolve_out_path(kb_dir: str | None, kb_file: str | None, out: str | None) 
 
 
 def _load_summary_settings() -> dict:
-    """要約設定をJSONから読み込む。
+    """rag_runtime_dev.json から summary 設定を読み込む。
 
     引数:
         なし。
@@ -243,18 +243,22 @@ def _load_summary_settings() -> dict:
         要約設定の辞書。
 
     例:
-        >>> _load_summary_settings()[\"summary\"][\"min_chars\"]
+        >>> _load_summary_settings()["summary"]["min_chars"]
         160
     """
     base = Path(__file__).resolve().parents[1]
     candidates = [
-        base / "configs" / "summary_settings.json",
-        base.parent / "configs" / "summary_settings.json",
+        base / "configs" / "rag_runtime_dev.json",
+        base.parent / "configs" / "rag_runtime_dev.json",
     ]
     path = next((p for p in candidates if p.exists()), None)
     if not path:
-        raise FileNotFoundError("summary_settings.json が見つかりません")
-    return json.loads(path.read_text(encoding="utf-8"))
+        raise FileNotFoundError("rag_runtime_dev.json が見つかりません")
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    summary = payload.get("summary_settings")
+    if not summary:
+        raise KeyError("rag_runtime_dev.json に summary_settings がありません")
+    return {"summary": summary}
 
 
 def _build_length_fix_user(summary: str, min_chars: int, max_chars: int) -> str:
@@ -365,6 +369,7 @@ def main() -> None:
     settings = load_llm_pipeline_settings()
     ctx = settings.get("contexts", {})
     scfg = settings.get("summary_gen", {})
+    common = settings.get("common", {})
     if args.contexts_max_chars is None:
         args.contexts_max_chars = int(ctx.get("max_chars_per_chunk", 1200))
     if args.max_md_files is None:
@@ -390,10 +395,10 @@ def main() -> None:
     length_fix_max_tokens = int(summary_cfg.get("length_fix_max_tokens", 600))
     length_fix_temperature = float(summary_cfg.get("length_fix_temperature", 0.0))
 
-    model_id = scfg.get("model_id")
-    region = scfg.get("region")
+    model_id = scfg.get("model_id") or common.get("model_id")
+    region = scfg.get("region") or common.get("region")
     if not model_id:
-        raise SystemExit("summary_gen の model_id が未設定です（configs/llm_pipeline_settings.json）")
+        raise SystemExit("summary_gen の model_id が未設定です（configs/rag_runtime_dev.json の llm_models.common）")
     llm = BedrockLLM(model_id=model_id, region=region)
     system = build_summary_system_prompt()
     rewrite_system = build_summary_rewrite_system_prompt()

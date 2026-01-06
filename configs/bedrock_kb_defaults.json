@@ -1,8 +1,0 @@
-{
-  "retriever_provider": "bedrock-kb",
-  "search_kwargs": {
-    "k": 4
-  },
-  "query_model": "bedrock/anthropic.claude-3-5-sonnet-20240620-v1:0",
-  "response_model": "bedrock/anthropic.claude-3-5-sonnet-20240620-v1:0"
-}

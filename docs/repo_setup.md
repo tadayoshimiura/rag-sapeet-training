@@ -1,32 +1,31 @@
-# Repo Setup (Fork + Rename + Safety)
+# リポジトリ準備（フォーク・リネーム・安全運用）
 
-## 1) Rename local directory
+## 1) ローカルディレクトリ名の変更
 
 ```bash
 mv /Users/tadayoshi_miura/workspace/rag-research-agent-template /Users/tadayoshi_miura/workspace/<NEW_REPO_NAME>
 ```
 
-## 2) Fork (Org)
+## 2) フォーク（Org）
 
-Create a fork under your Org, then set the new remote:
+Org配下にフォークを作成し、ローカルのリモートを更新します。
 
 ```bash
 cd /Users/tadayoshi_miura/workspace/<NEW_REPO_NAME>
 git remote set-url origin https://github.com/<ORG>/<NEW_REPO_NAME>.git
 ```
 
-## 3) Secret safety checks
+## 3) シークレット安全確認
 
 ```bash
-# .env should NOT be tracked
+# .env が追跡されていないことを確認
 git ls-files .env
 
-# check ignored files
+# ignore設定の確認
 git status -s
 ```
 
-## 4) .env usage
+## 4) .env運用
 
-- `.env` is local only
-- `.env.example` is the public template
-
+- `.env` はローカル専用
+- `.env.example` が公開用テンプレ

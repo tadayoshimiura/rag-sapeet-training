@@ -130,7 +130,7 @@ def _load_json(path: Path) -> Dict[str, Any]:
         Dict[str, Any]: JSONを辞書として返す。
 
     Example:
-        >>> _load_json(Path("configs/dev.json"))  # doctest: +SKIP
+        >>> _load_json(Path("configs/rag_runtime_dev.json"))  # doctest: +SKIP
         {"aws": {"region": "ap-northeast-1"}, ...}
     """
     with path.open("r", encoding="utf-8") as f:

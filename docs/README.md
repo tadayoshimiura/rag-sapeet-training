@@ -1,4 +1,4 @@
-# Docs Index
+# ドキュメント一覧
 
 ## テンプレ差分
 - `template_diff_classification.md`

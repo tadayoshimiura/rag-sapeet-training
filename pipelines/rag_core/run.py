@@ -74,7 +74,7 @@ class RuntimeSettings:
             RuntimeSettings: CLI実行時に参照するまとめ済み設定。
 
         Example:
-            >>> cfg = load_config("configs/dev.json")  # doctest: +SKIP
+            >>> cfg = load_config("configs/rag_runtime_dev.json")  # doctest: +SKIP
             >>> provider = resolve_active_provider(cfg)  # doctest: +SKIP
             >>> RuntimeSettings.from_config(cfg, PromptSettings(), provider)  # doctest: +SKIP
         """
@@ -157,7 +157,7 @@ class RAGApplication:
         llm_adapter (LangChainBedrockLLM): 直近レスポンスを保持するLLMラッパー。
 
     Example:
-        >>> app = RAGApplication.from_config(load_config("configs/dev.json"))  # doctest: +SKIP
+        >>> app = RAGApplication.from_config(load_config("configs/rag_runtime_dev.json"))  # doctest: +SKIP
     """
 
     def __init__(
@@ -233,7 +233,7 @@ def run(question: str, config_path: str) -> None:
         config_path (str): JSON設定ファイルパス。
 
     Example:
-        >>> run("質問", "configs/dev.json")  # doctest: +SKIP
+        >>> run("質問", "configs/rag_runtime_dev.json")  # doctest: +SKIP
     """
     config = load_config(config_path)
     provider_ctx = resolve_active_provider(config)
@@ -312,7 +312,7 @@ def main(argv: List[str] | None = None) -> None:
     parser.add_argument("--question", required=True, help="Question to send through the RAG pipeline")
     parser.add_argument(
         "--config",
-        default="configs/dev.json",
+        default="configs/rag_runtime_dev.json",
         help="Path to the JSON config file",
     )
     args = parser.parse_args(argv)

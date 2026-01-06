@@ -4,30 +4,15 @@
 
 ## ファイル一覧
 
-- `bedrock_defaults.json`
-  - Bedrock Embeddings のデフォルト設定。
-- `bedrock_kb.env`
+- `bedrock_kb_config.env`
   - Bedrock Knowledge Bases のID設定（KB ID / Data Source ID）。
-- `csv_genre_rules.yml`
-  - CSV由来のジャンル推定ルール。
-- `csv_mapping.yml`
-  - CSVの列マッピング定義。
-- `dev.json`
+- `csv_settings.yml`
+  - CSV列マッピングとCSVジャンル推定ルールをまとめた設定。
+- `rag_runtime_dev.json`
   - 開発用のRAG設定。
-- `genre_rules.yml`
-  - フォルダ/ファイル名からジャンル推定するルール。
-- `llm_pipeline_settings.json`
-  - 問題生成・要約生成・contexts などの共通パイプライン設定。
-- `opensearch_defaults.json`
-  - OpenSearch利用時のデフォルト設定。
-- `prod.json`
-  - 本番用のRAG設定。
-- `requirements-pipeline.txt`
-  - パイプライン用の依存関係（必要に応じて使用）。
+  - LLM設定（`llm_models`）、`summary_settings`、vector_store設定を含む。
 - `s3_sync.env`
   - S3同期・バックアップ・タイムアウトなどの共通環境変数。
-- `summary_settings.json`
-  - 要約生成のパラメータ設定。
 - `system_prompts.json`
   - System Prompt の管理（問題生成/要約/ルーターなど）。
 

@@ -32,8 +32,9 @@
 メモ:
 - 実行時は `PYTHONPATH=$PWD:$PWD/src` を前提とする（共通モジュールを参照するため）。
 - 実体の設定は `configs/s3_sync.env` に集約（プロファイル/バケット/講座ID/同期元/同期先/Python実行パス）。
-- LangGraph 側の既定設定は `configs/bedrock_defaults.json` / `configs/opensearch_defaults.json` に置く（modelId は `configs/` に設定済み）。
-- 問題生成/要約の model_id は `configs/llm_pipeline_settings.json` に必ず設定する（未設定なら実行時に停止）。
+- LangGraph 側の既定設定は `configs/rag_runtime_dev.json` を使用する。
+- Bedrockの既定値は `configs/rag_runtime_dev.json` と `configs/system_prompts.json` で管理する。
+- 問題生成/要約の model_id は `configs/rag_runtime_dev.json` の llm_models.common に必ず設定する（未設定なら実行時に停止）。
 - `run_pipeline.sh` の中で `aws sso login` を実行するため、基本的に手動ログインは不要。
 
 ## 日常運用（最小手順）
@@ -75,8 +76,8 @@
 ## 設定を変える場合
 - 固定値は `configs/s3_sync.env` を編集（バケット名、講座ID、同期元/先、Pythonパスなど）。
 - LLM入力が長すぎる場合は `video_pipeline/config.py` の `bedrock_chunk_chars` を調整。
-- CSV列の意味が変わる場合は `configs/csv_mapping.yml` を編集（列名→意味の対応）。
-- CSVのジャンル自動判定は `configs/csv_genre_rules.yml` でキーワードを設定する。
+- CSV列の意味が変わる場合は `configs/csv_settings.yml` を編集（列名→意味の対応）。
+- CSVのジャンル自動判定は `configs/csv_settings.yml` でキーワードを設定する。
 
 ## 既存出力の移動（1回だけ）
 以前の出力が `knowledge_md/v1/from_*` に残っている場合、以下で `knowledge_md/v1/<lecture_id>` に移動できます。
@@ -109,7 +110,7 @@ question_bank 側で `from_*` が残っている場合は、以下で lecture_id
 
 ## Bedrock Knowledge Base 経由の検索（テンプレ疎通）
 - ルーターを「KB前提」の判定に寄せる案は**検討中**。
-- 現行の設定は `configs/bedrock_kb_defaults.json` を使用。
+- 現行の設定は `configs/bedrock_kb_config.env` を使用。
 - 他モデルの候補は以下（コメントアウト扱いの参考）:
   - `# bedrock/anthropic.claude-3-haiku-20240307-v1:0`
   - `# bedrock/anthropic.claude-3-5-sonnet-20241022-v2:0`
@@ -231,7 +232,7 @@ PYTHONPATH=$PWD /Users/tadayoshi_miura/workspace/prepare/.venv_py313/bin/python 
   scripts/entry/run_kb_ingest.py --wait
 ```
 
-`KB_ID` / `DATA_SOURCE_ID` は `configs/bedrock_kb.env` に保存する。
+`KB_ID` / `DATA_SOURCE_ID` は `configs/bedrock_kb_config.env` に保存する。
 
 実行例（完了済み）:
 - job_id: `X5QI2SEDEQ`
@@ -257,7 +258,7 @@ PYTHONPATH=$PWD /Users/tadayoshi_miura/workspace/prepare/.venv_py313/bin/python 
 
 ## CSV列マッピング（補足）
 - CSVは「1ファイル=1コース」前提。`course_id` 列があれば1行目の値を採用する。
-- CSVにジャンル列が無い場合があるため、列→意味の対応は `configs/csv_mapping.yml` に集約。
+- CSVにジャンル列が無い場合があるため、列→意味の対応は `configs/csv_settings.yml` に集約。
 - ここで列名を変更しても、CSV専用の新規変数は作らず、既存の構造（セクション/パート/本文）にマッピングする。
 - ジャンル判定はファイル全体（CSV全文）を対象にした推定で、行ごとに分岐しない。
 

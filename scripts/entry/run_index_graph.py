@@ -59,7 +59,7 @@ def main() -> None:
     parser.add_argument("--kb-dir", required=True, help="knowledge_md/v1/<lecture_id> のローカルパス")
     parser.add_argument("--course-id", required=True, help="course_id=... 形式")
     parser.add_argument("--lecture-id", default=None, help="lecture_id（未指定ならフォルダ名）")
-    parser.add_argument("--config", default="configs/opensearch_defaults.json", help="設定JSON")
+    parser.add_argument("--config", default="configs/rag_runtime_dev.json", help="設定JSON")
     parser.add_argument("--max-md-files", type=int, default=None, help="読むMarkdown数の上限")
     parser.add_argument("--dry-run", action="store_true", help="投入せず件数だけ確認する")
     args = parser.parse_args()

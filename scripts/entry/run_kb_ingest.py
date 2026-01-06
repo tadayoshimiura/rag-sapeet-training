@@ -54,7 +54,7 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="Bedrock Knowledge Bases の取り込みを実行する")
     parser.add_argument(
         "--env",
-        default="configs/bedrock_kb.env",
+        default="configs/bedrock_kb_config.env",
         help="KB ID を格納した env ファイル",
     )
     parser.add_argument("--kb-id", default=None, help="Knowledge Base ID（未指定なら env）")

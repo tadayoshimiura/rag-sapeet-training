@@ -1,6 +1,0 @@
-# Runtime deps for the standalone video-to-RAG pipeline (keep separate from existing RAG stack).
-boto3
-ffmpeg-python
-pydantic
-pyyaml
-pypdf

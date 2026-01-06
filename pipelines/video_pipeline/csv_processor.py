@@ -152,6 +152,8 @@ class CsvProcessor:
         if not path.exists():
             return default
         data = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
+        if isinstance(data, dict) and "csv_mapping" in data:
+            data = data.get("csv_mapping", {}) or {}
         mapping = data.get("columns", {}) if isinstance(data, dict) else {}
         if not isinstance(mapping, dict):
             return default
@@ -314,6 +316,8 @@ class CsvProcessor:
         if not path.exists():
             return []
         data = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
+        if isinstance(data, dict) and "csv_genre_rules" in data:
+            data = data.get("csv_genre_rules", {}) or {}
         if not isinstance(data, dict):
             return []
         rules = data.get("rules", [])

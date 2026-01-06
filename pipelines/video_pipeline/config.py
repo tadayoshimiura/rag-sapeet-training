@@ -33,11 +33,11 @@ class PipelineConfig(BaseModel):
         description="分類が不明な場合にMarkdownヘッダへ入れる論理カテゴリ。",
     )
     csv_mapping_path: str = Field(
-        default="configs/csv_mapping.yml",
+        default="configs/csv_settings.yml",
         description="CSV列のマッピング定義ファイル（列名→意味）。",
     )
     csv_genre_rules_path: str = Field(
-        default="configs/csv_genre_rules.yml",
+        default="configs/csv_settings.yml",
         description="CSVのジャンル自動判定ルール（キーワードベース）。",
     )
 

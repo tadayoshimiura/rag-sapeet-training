@@ -48,6 +48,7 @@ def main() -> None:
     settings = load_llm_pipeline_settings()
     ctx = settings.get("contexts", {})
     qcfg = settings.get("question_gen", {})
+    common = settings.get("common", {})
     if args.contexts_max_chars is None:
         args.contexts_max_chars = int(ctx.get("max_chars_per_chunk", 1200))
     if args.max_md_files is None:
@@ -115,7 +116,7 @@ def main() -> None:
     model_id = args.judge_model_id or qcfg.get("model_id")
     region = args.judge_region or qcfg.get("region")
     if not model_id:
-        raise SystemExit("question_gen の model_id が未設定です（configs/llm_pipeline_settings.json か --judge-model-id）")
+        raise SystemExit("question_gen の model_id が未設定です（configs/rag_runtime_dev.json の llm_models.common か --judge-model-id）")
     llm = BedrockLLM(model_id=model_id, region=region)
     out_path = Path(args.out)
     if not is_s3_uri(args.out):
